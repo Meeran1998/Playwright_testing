@@ -9,15 +9,16 @@ test('talentkeepers', async () => {
 
   await page.goto('https://talentkeepers.com/');
   await page.getByRole('link', { name: 'Get Started Today' }).click();
-  await page.getByPlaceholder('First Name').click();
-  await page.getByPlaceholder('First Name').fill('Mohamed');
-  await page.getByPlaceholder('First Name').press('Tab');
-  await page.getByPlaceholder('Last Name').fill('Meeran');
-  await page.getByPlaceholder('Last Name').press('Tab');
-  await page.getByPlaceholder('Company Name').fill('Gyan');
-  await page.getByPlaceholder('Company Name').press('Tab');
-  await page.getByPlaceholder('Job Title').fill('software');
-  await page.getByPlaceholder('Job Title').press('Tab');
+  const values = ['Mohamed', 'Meeran', 'Gyan', 'software'];
+
+  const placeholders = ['First Name', 'Last Name', 'Company Name', 'Job Title'];
+
+  for (let i = 0; i < values.length; i++) {
+    const input = page.getByPlaceholder(placeholders[i]);
+    await input.click();
+    await input.fill(values[i]);
+    await input.press('Tab'); // Move to the next field
+  }
   await page.locator('section').click();
   await page.screenshot({ path: `test.png` });
   const text = await expect(
