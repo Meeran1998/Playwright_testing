@@ -2,7 +2,7 @@ import { test, expect, chromium } from '@playwright/test';
 import path from 'path';
 test('talentkeepers', async () => {
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
   });
 
   const page = await browser.newPage();
